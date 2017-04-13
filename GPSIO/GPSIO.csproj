@@ -31,13 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotSpatial.Data">
-      <HintPath>..\..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\DotSpatialApp (includes DotSpatial 1.7)\DotSpatial.Data.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Data.dll</HintPath>
     </Reference>
     <Reference Include="DotSpatial.Projections">
-      <HintPath>..\..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\DotSpatialApp (includes DotSpatial 1.7)\DotSpatial.Projections.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Projections.dll</HintPath>
     </Reference>
     <Reference Include="DotSpatial.Topology">
-      <HintPath>..\..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\DotSpatialApp (includes DotSpatial 1.7)\DotSpatial.Topology.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Topology.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

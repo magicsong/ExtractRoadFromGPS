@@ -9,7 +9,6 @@ using GPSAlogrithm;
 using GPSCore;
 using GPSIO;
 using DotSpatial.Topology;
-using Microsoft.Win32;
 
 namespace DesktopBaidu
 {

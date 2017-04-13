@@ -31,18 +31,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotSpatial.Data">
-      <HintPath>..\..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\DotSpatialApp (includes DotSpatial 1.7)\DotSpatial.Data.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Data.dll</HintPath>
     </Reference>
     <Reference Include="DotSpatial.Projections, Version=1.7.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\DotspatialNew\DotSpatial.Projections.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Projections.dll</HintPath>
     </Reference>
     <Reference Include="DotSpatial.Topology">
-      <HintPath>..\..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\DotSpatialApp (includes DotSpatial 1.7)\DotSpatial.Topology.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Topology.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

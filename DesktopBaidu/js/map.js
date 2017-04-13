@@ -311,7 +311,7 @@ function TestRTree() {
     //1.获取任意一条轨迹 2.获取检索到的道路
     DrawOneLineWithString(traj[0], "yellow");
     for (var i = 1; i < traj.length; i++) {
-        if (traj[i] != "") {
+        if (traj[i] !== "") {
             DrawOneLineWithString(traj[i], "white");
         }
     }
@@ -387,7 +387,7 @@ function DrawMarker(pt,url,width,height)
     map.addOverlay(marker2);              // 将标注添加到地图中
 }
 function DrawOneLineWithBaiduAPI(x, color) {
-    if (color == null) {
+    if (color === null) {
         color = "yellow";
     }
     var points = [];
@@ -439,7 +439,7 @@ function Show(d) {
 var isScrollable = false;
 var currentPolylines = [];
 function EnterUserID(event) {
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
         var inputID = parseInt($("#UserIDInput").val());
         if (isNaN(inputID)) {
             alert("请输入正确的ID");

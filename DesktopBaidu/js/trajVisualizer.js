@@ -15,7 +15,8 @@
  * @param {int} linewidth 线宽度
  */
 function DrawMultiLines(x, color, linewidth) {
-    
+    var data = JSON.parse(x);
+    var geodata = new mapv.DataSet(data);
     var mapvLayer = new mapv.baiduMapLayer(map, geodata, options);
     AddMapLayer(mapvLayer, "GPS轨迹");
 }

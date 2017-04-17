@@ -235,6 +235,7 @@
     <Content Include="js\Mapv.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="js\trajVisualizer.js" />
     <Content Include="js\utils.js" />
     <Content Include="polaris\polaris%402x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

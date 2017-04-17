@@ -12,14 +12,14 @@ namespace GPSCore
         public static string LineStringToJSON(ILineString ls)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("{\"geo\":\"line\",\"count\":1,\"data\":[");
+            sb.Append(@"{geometry:{type:'LineString,coordinates:[");
             for (int i = 0; i < ls.NumPoints; i++)
             {
                 sb.AppendFormat("[{0},{1}]", ls.Coordinates[i].X, ls.Coordinates[i].Y);
                 if (i != ls.NumPoints - 1)
                     sb.Append(',');
             }
-            sb.Append("]}");
+            sb.Append("]}}");
             return sb.ToString();
         }
         public static string LineSegmentToJSON(ILineSegment ls)

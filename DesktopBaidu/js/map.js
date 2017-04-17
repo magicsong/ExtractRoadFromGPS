@@ -179,22 +179,7 @@ function ReturnOriginalPostion() {
     map.panTo(orginalCenter);
 }
 //绘制多条轨迹
-function DrawGPSTrajectories(x, color, linewidth) {
-    var geodata = JSON2MapvJSON(x);
-    var options={
-        zIndex: 1,
-        mapv: mapv,
-        dataType: 'polyline',
-        data: geodata,
-        drawType: 'simple',
-        drawOptions: {
-            lineWidth: linewidth,
-            strokeStyle: color
-        }
-    };
-    var mapvLayer = new mapv.baiduMapLayer(map, geodata, options);
-    AddMapLayer(mapvLayer, "GPS轨迹");
-}
+
 function AddMapLayer(layer, name) {
     var index = maplayers.push(layer) - 1;
     var element = $("<a href='#'' class='list-group-item'><input type ='checkbox' checked='checked' id='checkbox" + index + "'>" + name + "</a>");

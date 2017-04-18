@@ -50,5 +50,17 @@ namespace GPSCore
             }
             return gpsTrajectoriesData.GetRange(indexes[0],indexes.Count);
         }
+        public string ToJSON()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append('[');
+            foreach (var item in gpsTrajectoriesData)
+            {
+                sb.Append(item.ToJSON());
+                sb.Append(',');
+            }
+            sb.Remove(sb.Length - 1, 1);
+            return sb.ToString();
+        }
     }
 }

@@ -93,8 +93,15 @@ namespace DesktopBaidu
         #region JS调用客户端函数
         public string GetRoadDataJS()
         {
-            string result = myRoadNetwork.ToJSON();
-            return result;
+            return myRoadNetwork.ToJSON();
+        }
+        /// <summary>
+        /// 将数据转换为JSON传给客户端
+        /// </summary>
+        /// <returns></returns>
+        public string GetGPSDataJS()
+        {
+            return myUserTrajectories.ToJSON();
         }
         #endregion
         /// <summary>

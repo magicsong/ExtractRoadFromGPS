@@ -11,123 +11,17 @@ var map = new BMap.Map("container", { enableMapClick: false, minZoom: 4, maxZoom
 // 地图自定义样式
 map.setMapStyle({
     styleJson: [
-  {
-      "featureType": "land",
-      "elementType": "geometry",
-      "stylers": {
-          "color": "#212121"
-      }
-  },
-  {
-      "featureType": "building",
-      "elementType": "geometry",
-      "stylers": {
-          "color": "#2b2b2b"
-      }
-  },
-  {
-      "featureType": "highway",
-      "elementType": "all",
-      "stylers": {
-          "lightness": -75,
-          "saturation": -91
-      }
-  },
-  {
-      "featureType": "arterial",
-      "elementType": "geometry",
-      "stylers": {
-          "lightness": -82,
-          "saturation": -94
-      }
-  },
-  {
-      "featureType": "green",
-      "elementType": "geometry",
-      "stylers": {
-          "color": "#1b1b1b"
-      }
-  },
-  {
-      "featureType": "water",
-      "elementType": "geometry",
-      "stylers": {
-          "color": "#181818"
-      }
-  },
-  {
-      "featureType": "subway",
-      "elementType": "all",
-      "stylers": {
-          "lightness": -100,
-          "saturation": -91
-      }
-  },
-  {
-      "featureType": "railway",
-      "elementType": "geometry",
-      "stylers": {
-          "lightness": -84
-      }
-  },
-  {
-      "featureType": "all",
-      "elementType": "labels.text.stroke",
-      "stylers": {
-          "color": "#313131"
-      }
-  },
-  {
-      "featureType": "all",
-      "elementType": "labels",
-      "stylers": {
-          "color": "#8b8787",
-          "lightness": -19,
-          "visibility": "off"
-      }
-  },
-  {
-      "featureType": "manmade",
-      "elementType": "geometry",
-      "stylers": {
-          "color": "#1b1b1b"
-      }
-  },
-  {
-      "featureType": "local",
-      "elementType": "geometry",
-      "stylers": {
-          "lightness": -97,
-          "saturation": -100,
-          "visibility": "off"
-      }
-  },
-  {
-      "featureType": "subway",
-      "elementType": "geometry",
-      "stylers": {
-          "lightness": -76
-      }
-  },
-  {
-      "featureType": "railway",
-      "elementType": "all",
-      "stylers": {
-          "lightness": -40,
-          "visibility": "off"
-      }
-  },
-  {
-      "featureType": "boundary",
-      "elementType": "geometry",
-      "stylers": {
-          "color": "#8b8787",
-          "weight": "1",
-          "lightness": -29
-      }
-  }
+        {
+            "featureType": "all",
+            "elementType": "all",
+            "stylers": {
+                "lightness": 61,
+                "saturation": -100
+            }
+        }
     ]
 });
+
 map.enableScrollWheelZoom(true);
 var orginalCenter = new BMap.Point(117.289237, 31.868524);
 map.centerAndZoom(orginalCenter, 15);
@@ -148,21 +42,17 @@ var legendPanel = [];
  */
 function AddMapLayer(layer, name) {
     var index = maplayers.push(layer) - 1;
-    var element = $("<a href='#'' class='list-group-item'><input type ='checkbox' checked='checked' id='checkbox" + index + "'>" + name + "</a>");
-    $("#layergroup").append(element);
-    var currentCheckbox = $("input#checkbox" + index);
-    currentCheckbox.iCheck('check', {
+    var id = "checkbox" + index;
+    $("#layergroup").html($("#layergroup").html() + "<a href='#'' class='list-group-item'><input type ='checkbox' checked='checked' id='"+id + "'>" + name + "</a>");
+    $('#'+id).iCheck({
         checkboxClass: 'icheckbox_polaris',
         radioClass: 'iradio_polaris',
-        increaseArea: '-10' // optional
-    });
-    currentCheckbox.on('ifUnchecked', function (event) {
+        increaseArea: '-10%' // optional
+    }).on('ifUnchecked', function (event) {
         layer.hide();
+    }).on('ifChecked', function (event) {
+        layer.show();
     });
-    currentCheckbox.on('ifChecked', function (event) {
-      layer.show();
-    });
-    legendPanel.push(element);
 }
 /**
  * 用于绘制多条线数据
@@ -206,4 +96,9 @@ function LoadingDone() {
 function AddRoadData() {
     var roadData = window.external.GetRoadDataJS();
     DrawMultiLines(roadData, "rgba(255, 250, 250, 0.2)", 5, "路网");
+}
+function AddGPSData() {
+    var gpsData = window.external.GetGPSDataJS();
+    DrawMultiLines(roadData, "rgba(250, 50, 50, 0.8)", 0.1, "GPS轨迹");
+
 }

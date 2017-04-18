@@ -30,14 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotSpatial.Data">
-      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Data.dll</HintPath>
+    <Reference Include="DotSpatial.Analysis">
+      <HintPath>..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\Dotspatial 1.9\DotSpatial.Analysis.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Projections">
-      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Projections.dll</HintPath>
+    <Reference Include="DotSpatial.Data, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\Dotspatial 1.9\DotSpatial.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DotSpatial.Topology">
-      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Topology.dll</HintPath>
+    <Reference Include="DotSpatial.Projections, Version=1.7.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\Dotspatial 1.9\DotSpatial.Projections.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Topology, Version=1.7.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\Dotspatial 1.9\DotSpatial.Topology.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

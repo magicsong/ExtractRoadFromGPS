@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSAlogrithm", "GPSAlogrith
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPSIO", "GPSIO\GPSIO.csproj", "{5275F0DE-EBE7-45F2-8FE3-A9F80E08A2B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87E5F633-874B-4924-9785-B3008E70DD49}"
+	ProjectSection(SolutionItems) = preProject
+		项目说明.txt = 项目说明.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

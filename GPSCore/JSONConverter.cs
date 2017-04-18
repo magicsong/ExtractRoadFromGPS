@@ -12,7 +12,7 @@ namespace GPSCore
         public static string LineStringToJSON(ILineString ls)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(@"{geometry:{type:'LineString,coordinates:[");
+            sb.Append("{\"geometry\":{\"type\":\"LineString\",\"coordinates\":[");
             for (int i = 0; i < ls.NumPoints; i++)
             {
                 sb.AppendFormat("[{0},{1}]", ls.Coordinates[i].X, ls.Coordinates[i].Y);
@@ -29,20 +29,14 @@ namespace GPSCore
         public static string PolylineToJSON(IEnumerable<ILineString> polyline)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("{\"geo\":\"polyline\",\"count\":" + polyline.Count() + ",\"data\":[");
-            foreach (var line in polyline)
+            sb.Append('[');
+            foreach (var item in polyline)
             {
-                sb.Append("[");
-                for (int i = 0; i < line.NumPoints; i++)
-                {
-                    sb.AppendFormat("[{0},{1}]", line.Coordinates[i].X, line.Coordinates[i].Y);
-                    if (i != line.NumPoints - 1)
-                        sb.Append(",");
-                }
-                sb.Append("],");
+                sb.Append(LineStringToJSON(item));
+                sb.Append(',');
             }
             sb.Remove(sb.Length - 1, 1);
-            sb.Append("]}");
+            sb.Append(']');
             return sb.ToString();
         }
         public static string MultiLineSegToJSON(IEnumerable<ILineSegment> lines)

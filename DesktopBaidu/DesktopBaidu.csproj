@@ -230,6 +230,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="js\utils.js" />
+    <Content Include="mapbackup.html" />
     <Content Include="polaris\polaris%402x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

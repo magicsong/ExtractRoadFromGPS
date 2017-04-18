@@ -60,6 +60,7 @@ namespace GPSCore
                 sb.Append(',');
             }
             sb.Remove(sb.Length - 1, 1);
+            sb.Append(']');
             return sb.ToString();
         }
     }

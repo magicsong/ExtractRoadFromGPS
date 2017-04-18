@@ -58,7 +58,7 @@ namespace DesktopBaidu
             myRoadNetwork = RoadNetworkReader.ReadRoadDataFromFile(@"Data\link_hefei.txt", @"Data\connectivity_hefei.txt", @"Data\ref_points_hefei.txt");
             myRoadNetwork.BuildRoadRtree();
             toolStripProgressBar1.ProgressBar.Invoke(new Action(() => { toolStripStatusLabel1.Text = "路网以及R树构建完成"; }));
-            //AddGPSFile(@"Data/newTrajectoriespart.txt");
+            AddGPSFile(@"Data/newTrajectoriespart.txt");
             toolStripProgressBar1.ProgressBar.Invoke(new Action(() => { toolStripStatusLabel1.Text = "GPS轨迹装载完成"; webBrowser1.Document.InvokeScript("LoadingDone"); }));
             //通知浏览器数据加载完成
         }

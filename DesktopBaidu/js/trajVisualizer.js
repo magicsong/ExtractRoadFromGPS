@@ -95,10 +95,17 @@ function LoadingDone() {
  */
 function AddRoadData() {
     var roadData = window.external.GetRoadDataJS();
-    DrawMultiLines(roadData, "rgba(255, 250, 250, 0.2)", 5, "路网");
+    DrawMultiLines(roadData, "rgba(255, 250, 250, 0.8)", 5, "路网");
 }
 function AddGPSData() {
     var gpsData = window.external.GetGPSDataJS();
-    DrawMultiLines(roadData, "rgba(250, 50, 50, 0.8)", 0.1, "GPS轨迹");
-
+    DrawMultiLines(gpsData, "rgba(250, 50, 50, 0.3)", 0.1, "GPS轨迹");
+}
+function ShowUserTrajectories() {
+    var id = $("#inputOfUserID").val();
+    if (isNaN(id)) {
+        alert("请输入用户ID");
+        return;
+    }
+    var data = window.external.ShowUserTrajectories(id);
 }

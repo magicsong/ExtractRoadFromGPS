@@ -1,0 +1,24 @@
+﻿
+<!--下面这个是用户轨迹列表的代码，因为影响视图尝试去掉-->
+<div class="col-md-9" style="position:relative;height:100%">
+    <div id="container"></div>
+    <div class="panel panel-default" id="UserPanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">用户轨迹列表</h3>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." onkeypress="EnterUserID(event)" id="UserIDInput">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                </span>
+            </div><!-- /input-group -->
+            <div style="max-height:440px;" id="AllTraces">
+                <!--ScrollablePanel-->
+                <h3>用户所有轨迹</h3>
+                <hr />
+                <div class="list-group" id="UserTraces"></div>
+            </div>
+        </div>
+    </div>
+</div>

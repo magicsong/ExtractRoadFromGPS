@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoordinateTransformUtil.cs" />
     <Compile Include="GPSDouglasSimplification.cs" />
     <Compile Include="KernelMethodWithDirection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

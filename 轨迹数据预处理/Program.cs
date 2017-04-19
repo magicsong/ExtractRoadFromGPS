@@ -14,6 +14,14 @@ namespace 轨迹数据预处理
         [STAThread]
         static void Main(string[] args)
         {
+            //ProecessingOne();
+        }
+        private static void TransformGPS()
+        {
+
+        }
+        private static void ProecessingOne()
+        {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "文本文件|*.txt";
             ofd.RestoreDirectory = true;
@@ -33,7 +41,7 @@ namespace 轨迹数据预处理
                         for (int i = 0; i < data.Length; i += 3)
                         {
                             //添加时间信息
-                            sb.Append("[" + data[i + 1] + "," + data[i + 2] +","+data[i].Substring(0,7)+"]");
+                            sb.Append("[" + data[i + 1] + "," + data[i + 2] + "," + data[i].Substring(0, 7) + "]");
                             if (i != data.Length - 3)
                             {
                                 sb.Append(',');

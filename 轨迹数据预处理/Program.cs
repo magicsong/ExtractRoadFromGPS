@@ -8,7 +8,9 @@ using System.Windows.Forms;
 using CsvHelper;
 using GPSAlogrithm;
 using GPSCore;
+using GPSIO;
 using DotSpatial.Topology;
+using DotSpatial.Data;
 
 namespace 轨迹数据预处理
 {
@@ -20,7 +22,8 @@ namespace 轨迹数据预处理
         {
             //ProecessingOne();
             //TransformGPS();
-            ProcessingGPSTrajectories();
+            //ProcessingGPSTrajectories();
+            RoadToShapefile();
         }
         internal class RoadLink
         {
@@ -28,6 +31,7 @@ namespace 轨迹数据预处理
             public string Name { get; set; }
             public int Level { get; set; }
             public string Attribute { get; set; }
+            public double Length { get; set; }
             public double StartX { get; set; }
             public double StartY { get; set; }
             public double EndX { get; set; }
@@ -48,7 +52,7 @@ namespace 轨迹数据预处理
             ofd.RestoreDirectory = true;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                using (TextReader sr = new StreamReader(ofd.FileName))
+                using (TextReader sr = new StreamReader(ofd.FileName/*,Encoding.GetEncoding("GB2312")*/))
                 {
                     var csv = new CsvReader(sr);
                     csv.Configuration.Delimiter = "\t";
@@ -58,8 +62,14 @@ namespace 轨迹数据预处理
                         double[] newPoints = CoordinateTransformUtil.bd09towgs84(item.X, item.Y);
                         item.X = newPoints[0];
                         item.Y = newPoints[1];
+                        //double[] newStart = CoordinateTransformUtil.bd09towgs84(item.StartX, item.StartY);
+                        //double[] newEnd = CoordinateTransformUtil.bd09towgs84(item.EndX, item.EndY);
+                        //item.StartX = newStart[0];
+                        //item.StartY = newStart[1];
+                        //item.EndX = newEnd[0];
+                        //item.EndY = newEnd[1];
                     }
-                    StreamWriter sw = new StreamWriter("newRef_points_hefei.csv",false,Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter("newRef_points_hefei.csv", false,Encoding.UTF8);
                     var csvwriter = new CsvWriter(sw);
                     csvwriter.WriteRecords(records);
                     sw.Close();
@@ -130,6 +140,11 @@ namespace 轨迹数据预处理
                     sw.Close();
                 }
             }
+        }
+        private static void RoadToShapefile()
+        {
+            var roadNetwork = RoadNetworkReader.ReadRoadDataFromFile(@"D:\My University\数据挖掘\程序\项目用数据\newLink_hefei.csv", @"D:\My University\数据挖掘\程序\项目用数据\connectivity_hefei.txt", @"D:\My University\数据挖掘\程序\项目用数据\newRef_points_hefei.csv");
+            RoadNetworkWriter.RoadNetworkToShapefile(roadNetwork, "road.shp");
         }
     }
 }

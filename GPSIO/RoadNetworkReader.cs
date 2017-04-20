@@ -18,9 +18,11 @@ namespace GPSIO
             SortedDictionary<long, Road> roads = new SortedDictionary<long, Road>();
             long currentId = 0;
             List<Coordinate> oneRoad = new List<Coordinate>();
+            //读取head
+            sr.ReadLine();
             while (!sr.EndOfStream)
             {
-                string[] oneline = sr.ReadLine().Split('\t');
+                string[] oneline = sr.ReadLine().Split(',');//csv是逗号隔开的
                 int currentOrder = int.Parse(oneline[2]);
                 if (currentOrder == 0)
                 {
@@ -42,15 +44,16 @@ namespace GPSIO
             sr.Close();
             //属性文件
             sr = new StreamReader(attrfile);
+            sr.ReadLine();
             while (!sr.EndOfStream)
             {
-                string[] oneline = sr.ReadLine().Split('\t');
+                string[] oneline = sr.ReadLine().Split(',');
                 long id = long.Parse(oneline[0]);
                 Road r = roads[id];
                 r.RoadName = oneline[1].Trim('\"');
                 r.RoadFunction = byte.Parse(oneline[2], System.Globalization.NumberStyles.HexNumber);
-                r.RoadLength = double.Parse(oneline[3]);
-                string[] types = oneline[4].Split('|');
+                r.RoadLength = double.Parse(oneline[4]);
+                string[] types = oneline[3].Split('|');
                 foreach (var item in types)
                 {
                     r.RoadAttribute.Add(new RoadType(item));

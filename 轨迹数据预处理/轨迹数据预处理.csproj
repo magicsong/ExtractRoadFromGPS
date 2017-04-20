@@ -35,9 +35,12 @@
     <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
       <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
     </Reference>
+    <Reference Include="DotSpatial.Data">
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Data.dll</HintPath>
+    </Reference>
     <Reference Include="DotSpatial.Topology, Version=1.9.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\Dotspatial 1.9\DotSpatial.Topology.dll</HintPath>
+      <HintPath>..\..\..\..\开源库\桌面\C#.NET\DotSpatial 1.8\DotSpatial.Topology.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

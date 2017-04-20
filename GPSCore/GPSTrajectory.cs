@@ -9,6 +9,7 @@ namespace GPSCore
     {
         List<GPSPoint> m_PointCollection;
         int m_Number = 0;
+        const double BUFFER_DISTANCE = 40;
         public GPSPoint this[int index]
         {
             get
@@ -111,6 +112,11 @@ namespace GPSCore
         public Envelope GetMBB()
         {
             return LineString.Envelope as Envelope;
+        }
+        public Envelope GetBufferMBB()
+        {
+            ///TODOLIST
+            return null;
         }
         /// <summary>
         /// 速度一致性检验

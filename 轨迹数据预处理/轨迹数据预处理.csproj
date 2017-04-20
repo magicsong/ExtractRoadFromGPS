@@ -32,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="DotSpatial.Topology, Version=1.9.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\各种Application\GIS个人系统\开源软件DotSpatial\Dotspatial 1.9\DotSpatial.Topology.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -47,6 +54,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GPSAlogrithm\GPSAlogrithm.csproj">
+      <Project>{0355b456-010a-4755-80c8-95e8fb4dca39}</Project>
+      <Name>GPSAlogrithm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPSCore\GPSCore.csproj">
+      <Project>{a6fcdfac-333f-4a7b-a2c3-3f65ac367716}</Project>
+      <Name>GPSCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPSIO\GPSIO.csproj">
+      <Project>{5275f0de-ebe7-45f2-8fe3-a9f80e08a2b0}</Project>
+      <Name>GPSIO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,10 +1,9 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-.container {
-    max-width: 1920px;
+    padding:0px;
+    height:100%;
+    position:absolute;
+    margin:0px;
+    width:100%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -20,8 +19,27 @@ select,
 textarea {
     max-width: 280px;
 }
-#map
+.container-fluid 
 {
-    width:100%;
+    height:100%;
+}
+#sidebar {
+    width: 10%;
+    height: 100%;
+    background-color: rgb(34, 34, 34);
+    position: fixed;
+}
+#map {
+    width: auto;
+    margin-left:10%;
+    height: 100%;
+    position: relative;
+}
+#sideheader
+{
+    margin:25px 15px;
+    font-family:STXihei;
+    font-size:larger;
+    color:white;
 }
 

@@ -1,9 +1,9 @@
 ﻿body {
-    padding:0px;
-    height:100%;
-    position:absolute;
-    margin:0px;
-    width:100%;
+    padding: 0px;
+    height: 100%;
+    position: absolute;
+    margin: 0px;
+    width: 100%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -19,27 +19,76 @@ select,
 textarea {
     max-width: 280px;
 }
-.container-fluid 
-{
-    height:100%;
-}
-#sidebar {
-    width: 10%;
+
+.container-fluid {
     height: 100%;
-    background-color: rgb(34, 34, 34);
-    position: fixed;
 }
+
+#sidebar {
+    width: 8%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+}
+
 #map {
+  width:auto;
+  height:100%;
+}
+#mapcontainer {
     width: auto;
-    margin-left:10%;
+    margin-left: 8%;
     height: 100%;
     position: relative;
 }
-#sideheader
-{
-    margin:25px 15px;
-    font-family:STXihei;
-    font-size:larger;
-    color:white;
+#loadSVG {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    text-align: center;
+    width: 160px;
+    height: 160px;
+    color: white;
+    font-size: 18px;
+    z-index: 9;
+    display: none;
+    background-color: rgba(255, 255, 255,0.2);
 }
 
+#layergroup {
+    text-align: left;
+}
+
+.map-overlay {
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    position: absolute;
+    width: 25%;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+.map-overlay .map-overlay-inner {
+        background-color: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+.map-overlay h2 {
+        line-height: 24px;
+        display: block;
+        margin: 0 0 10px;
+    }
+.map-overlay .legend .bar {
+        height: 10px;
+        width: 100%;
+        background: linear-gradient(to right, #FCA107, #7F3121);
+    }
+.map-overlay input {
+        background-color: transparent;
+        display: inline-block;
+        width: 100%;
+        position: relative;
+        margin: 0;
+        cursor: ew-resize;
+    }

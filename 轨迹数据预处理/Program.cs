@@ -11,6 +11,7 @@ using GPSCore;
 using GPSIO;
 using DotSpatial.Topology;
 using DotSpatial.Data;
+using System.Threading;
 
 namespace 轨迹数据预处理
 {
@@ -23,7 +24,8 @@ namespace 轨迹数据预处理
             //ProecessingOne();
             //TransformGPS();
             //ProcessingGPSTrajectories();
-            RoadToShapefile();
+            //RoadToShapefile();
+            GPSTraceToShp();
         }
         internal class RoadLink
         {
@@ -145,6 +147,25 @@ namespace 轨迹数据预处理
         {
             var roadNetwork = RoadNetworkReader.ReadRoadDataFromFile(@"D:\My University\数据挖掘\程序\项目用数据\newLink_hefei.csv", @"D:\My University\数据挖掘\程序\项目用数据\connectivity_hefei.txt", @"D:\My University\数据挖掘\程序\项目用数据\newRef_points_hefei.csv");
             RoadNetworkWriter.RoadNetworkToShapefile(roadNetwork, "road.shp");
+        }
+        private static void GPSTraceToShp()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "文本文件|*.txt;*.csv";
+            ofd.RestoreDirectory = true;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Console.WriteLine("Application thread ID: {0}",
+                        Thread.CurrentThread.ManagedThreadId);
+                var gpsData = GPSIO.GPSTrajectoryReader.ReadAll(ofd.FileName);
+                var t=Task.Run(() =>{
+                    GPSTrajectoryWriter.ExportGPSTrajectoriesToShapefile("GPSTraces.shp", gpsData.GPSTrajectoriesData);
+                    Console.WriteLine("Data Transform Completed!");
+                    Console.ReadKey();
+                });
+                Console.Write("Please wait for completition");
+                t.Wait();
+            }
         }
     }
 }

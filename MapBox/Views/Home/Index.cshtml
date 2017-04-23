@@ -15,14 +15,55 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <div id="loadSVG">
+        <img src="~/images/poi.svg" />
+        <p>正在读取数据......</p>
+    </div>
     <div class="container-fluid">
         <div id="sidebar">
-            <div id="sideheader"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;&nbsp;功能列表</div>
-        </div> 
-        <div id="map"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;&nbsp;数据导入
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group-vertical" role="group" aria-label="数据面板">
+                        <button type="button" class="btn btn-default" onclick="AddRoad()"><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp;&nbsp;添加路网</button>
+                        <button type="button" class="btn btn-default" onclick="AddGPS()"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>&nbsp;&nbsp;添加轨迹</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp;&nbsp;各项功能</div>
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                    <button type="button" class="btn btn-primary" onclick="AddRoad()"><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp;&nbsp;添加路网</button>
+                    <button type="button" class="btn btn-primary" onclick="AddRoad()"><span class="glyphicon glyphicon-th" aria-hidden="true"></span>&nbsp;&nbsp;添加路网</button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;&nbsp;图层面板</div>
+                <ul class="list-group" id="layergroup"></ul>
+            </div>
+        </div>
+        <div id="mapcontainer">
+            <div id="map"></div>
+            <div class='map-overlay top'>
+                <div class='map-overlay-inner'>
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <span class="label label-info">X:</span><span class="label label-default" id="currentX">X:</span>
+                    <span class="label label-info">Y:</span><span class="label label-default" id="currentY">Y:</span>
+                </div>
+                <div class='map-overlay-inner'>
+                    <div id='legend' class='legend'>
+                        <div class='bar'></div>
+                        <div>Magnitude (m)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/icheck.min.js"></script>
     <script src="~/Scripts/map.js"></script>
 </body>
 </html>

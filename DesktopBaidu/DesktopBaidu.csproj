@@ -190,6 +190,7 @@
     <Content Include="images\endpoint.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\poi.svg" />
     <Content Include="images\select.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

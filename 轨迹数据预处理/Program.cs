@@ -25,7 +25,8 @@ namespace 轨迹数据预处理
             //TransformGPS();
             //ProcessingGPSTrajectories();
             //RoadToShapefile();
-            GPSTraceToShp();
+            //GPSTraceToShp();
+            GetODPoints();
         }
         internal class RoadLink
         {
@@ -71,7 +72,7 @@ namespace 轨迹数据预处理
                         //item.EndX = newEnd[0];
                         //item.EndY = newEnd[1];
                     }
-                    StreamWriter sw = new StreamWriter("newRef_points_hefei.csv", false,Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter("newRef_points_hefei.csv", false, Encoding.UTF8);
                     var csvwriter = new CsvWriter(sw);
                     csvwriter.WriteRecords(records);
                     sw.Close();
@@ -88,16 +89,16 @@ namespace 轨迹数据预处理
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 StreamWriter sw = new StreamWriter("newTraces.txt");
-                var gpsData=GPSIO.GPSTrajectoryReader.ReadAll(ofd.FileName);
+                var gpsData = GPSIO.GPSTrajectoryReader.ReadAll(ofd.FileName);
                 foreach (var item in gpsData.GPSTrajectoriesData)
                 {
                     sw.Write(item.UserID + "\t");
-                    for(int i=0;i<item.GPSCount;i++)
+                    for (int i = 0; i < item.GPSCount; i++)
                     {
                         double[] newPoint = CoordinateTransformUtil.bd09towgs84(item[i].X, item[i].Y);
-                        sw.Write(string.Format("{0},{1},{2}", item[i].TimeStamp, newPoint[0],newPoint[1]));
+                        sw.Write(string.Format("{0},{1},{2}", item[i].TimeStamp, newPoint[0], newPoint[1]));
                         if (i != item.GPSCount - 1)
-                            sw.Write("|");                       
+                            sw.Write("|");
                     }
                     sw.Write(Environment.NewLine);
                 }
@@ -158,13 +159,53 @@ namespace 轨迹数据预处理
                 Console.WriteLine("Application thread ID: {0}",
                         Thread.CurrentThread.ManagedThreadId);
                 var gpsData = GPSIO.GPSTrajectoryReader.ReadAll(ofd.FileName);
-                var t=Task.Run(() =>{
+                var t = Task.Run(() =>
+                {
                     GPSTrajectoryWriter.ExportGPSTrajectoriesToShapefile("GPSTraces.shp", gpsData.GPSTrajectoriesData);
                     Console.WriteLine("Data Transform Completed!");
                     Console.ReadKey();
                 });
                 Console.Write("Please wait for completition");
                 t.Wait();
+            }
+        }
+        private static void GetODPoints()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "文本文件|*.txt;*.csv";
+            ofd.RestoreDirectory = true;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Console.WriteLine("Application thread ID: {0}",
+                        Thread.CurrentThread.ManagedThreadId);
+                var gpsData = GPSIO.GPSTrajectoryReader.ReadAll(ofd.FileName);
+                //保存成shapefile
+                IFeatureSet oFS = new FeatureSet(FeatureType.Point);
+                oFS.Name = "OriginalPoints";
+                oFS.DataTable.Columns.Add("UserID", typeof(int));
+                oFS.DataTable.Columns.Add("Time", typeof(int));
+                //D
+                IFeatureSet dFS = new FeatureSet(FeatureType.Point);
+                dFS.Name = "DesPoints";
+                dFS.DataTable.Columns.Add("UserID", typeof(int));
+                dFS.DataTable.Columns.Add("Time", typeof(int));
+                for (int i=0;i<gpsData.GPSTrajectoriesData.Count;i++)
+                {
+                    //起点shapefile
+                    var fe=oFS.AddFeature(new Point(gpsData.GPSTrajectoriesData[i].Start));
+                    fe.DataRow.BeginEdit();
+                    fe.DataRow["UserID"] = gpsData.GPSTrajectoriesData[i].UserID;
+                    fe.DataRow["Time"] = gpsData.GPSTrajectoriesData[i].Start.TimeStamp;
+                    fe.DataRow.EndEdit();
+                    //终点shapefile
+                    var dfe = dFS.AddFeature(new Point(gpsData.GPSTrajectoriesData[i].End));
+                    dfe.DataRow.BeginEdit();
+                    dfe.DataRow["UserID"] = gpsData.GPSTrajectoriesData[i].UserID;
+                    dfe.DataRow["Time"] = gpsData.GPSTrajectoriesData[i].End.TimeStamp;
+                    dfe.DataRow.EndEdit();
+                }
+                oFS.SaveAs("OriginalPoints.shp", true);
+                dFS.SaveAs("DesPoints.shp", true);
             }
         }
     }

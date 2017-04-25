@@ -15,6 +15,18 @@ map.on('mousemove', function (e) {
 });
 var roadID = "road";
 var GPSID = "GPS";
+function LoadingAnimate(id,name)
+{
+    $("#loadSVG").show();
+    var listener = function (e) {
+        if (e.isSourceLoaded && e.tile != undefined) {
+            map.off("sourcedata", listener);
+            AddLayerToLegend(id, name);
+            $("#loadSVG").hide();
+        }
+    };
+    map.on("sourcedata", listener);
+}
 function AddRoad()
 {
     map.addLayer({
@@ -57,16 +69,93 @@ function AddGPS()
             }
         }
     );
-    $("#loadSVG").show();
-    var listener = function (e) {
-        if (e.isSourceLoaded && e.tile != undefined) {
-            map.off("sourcedata", listener);
-            AddLayerToLegend(GPSID, "GPS轨迹");
-            $("#loadSVG").hide();
-        }
-    };
-    map.on("sourcedata", listener);
-    
+    LoadingAnimate(GPSID, "GPS轨迹");
+}
+function AddOPoints1()
+{
+    map.addSource("startpoints", {
+        type: "geojson",
+        // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
+        // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+        data: 'http://localhost:1228/GetData/GetStartPoints',
+        cluster: true,
+        clusterMaxZoom: 20, // Max zoom to cluster points on
+        clusterRadius: 20 // Use small cluster radius for the heatmap look
+    });
+    var layers = [
+        [30, '#ffffd4'],
+        [100, '#fed98e'],
+        [300, '#fe9929'],
+        [500,'#d95f0e']
+        //[1000, '#993404']
+    ];
+
+    layers.forEach(function (layer, i) {
+        map.addLayer({
+            "id": "cluster-" + i,
+            "type": "circle",
+            "source": "startpoints",
+            "paint": {
+                "circle-color": layer[1],
+                "circle-radius": 70,
+                "circle-blur": 0.5 // blur the circles to get a heatmap look
+            },
+            "filter": i === layers.length - 1 ?
+                [">=", "point_count", layer[0]] :
+                ["all",
+                    [">=", "point_count", layer[0]],
+                    ["<", "point_count", layers[i + 1][0]]]
+        });
+    });
+
+    //map.addLayer({
+    //    "id": "unclustered-points",
+    //    "type": "circle",
+    //    "source": "startpoints",
+    //    "paint": {
+    //        "circle-color": 'rgba(255,255,255,0.5)',
+    //        "circle-radius": 10,
+    //        "circle-blur": 0.5
+    //    },
+    //    "filter": ["!=", "cluster", true]
+    //});
+
+
+}
+function AddOPoints()
+{
+    map.addSource("startpoints", {
+        type: "geojson",
+        data: 'http://localhost:1228/GetData/GetStartPoints',
+    });
+    map.addLayer({
+        "id": "strartpoints",
+        "type": "circle",
+        "source": "startpoints",
+        "paint": {
+            "circle-color": 'rgba(52, 152, 219,0.1)',
+            "circle-radius": 3,
+            "circle-blur": 0
+        },
+    });
+    LoadingAnimate("startpoints", "起点图");
+}
+function AddDPoints() {
+    map.addSource("endpoints", {
+        type: "geojson",
+        data: 'http://localhost:1228/GetData/GetEndPoints',
+    });
+    map.addLayer({
+        "id": "endpoints",
+        "type": "circle",
+        "source": "endpoints",
+        "paint": {
+            "circle-color": 'rgba(231, 76, 60,0.1)',
+            "circle-radius": 3,
+            "circle-blur": 0
+        },
+    });
+    LoadingAnimate("endpoints", "终点图");
 }
 function AddLayerToLegend(id,name)
 {

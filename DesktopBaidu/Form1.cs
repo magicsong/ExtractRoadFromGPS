@@ -42,7 +42,7 @@ namespace DesktopBaidu
         private StreamWriter logWriter;
         private void Form1_Load(object sender, EventArgs e)
         {
-            webBrowser1.Navigate("file://" + Application.StartupPath + @"\map.html");
+            webBrowser1.Navigate("file://" + Environment.CurrentDirectory + @"\map.html");
             webBrowser1.ObjectForScripting = this;
             logWriter = new StreamWriter("log.txt");
             workerThread = new Thread(new ThreadStart(ConstructRoadAndData));

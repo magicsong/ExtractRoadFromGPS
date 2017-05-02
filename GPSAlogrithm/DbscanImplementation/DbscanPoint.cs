@@ -1,5 +1,5 @@
-﻿using DotSpatial.Topology;
-
+﻿using DotSpatial.Data;
+using DotSpatial.Topology;
 namespace GPSAlogrithm.DbscanImplementation
 {
     public enum ClusterIds

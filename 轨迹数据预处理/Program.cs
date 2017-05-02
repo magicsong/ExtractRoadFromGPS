@@ -12,6 +12,7 @@ using GPSIO;
 using DotSpatial.Topology;
 using DotSpatial.Data;
 using System.Threading;
+using DotSpatial.Projections;
 
 namespace 轨迹数据预处理
 {
@@ -26,7 +27,8 @@ namespace 轨迹数据预处理
             //ProcessingGPSTrajectories();
             //RoadToShapefile();
             //GPSTraceToShp();
-            GetODPoints();
+            //GetODPoints();
+            CentroidToShapefile();
         }
         internal class RoadLink
         {
@@ -189,10 +191,10 @@ namespace 轨迹数据预处理
                 dFS.Name = "DesPoints";
                 dFS.DataTable.Columns.Add("UserID", typeof(int));
                 dFS.DataTable.Columns.Add("Time", typeof(int));
-                for (int i=0;i<gpsData.GPSTrajectoriesData.Count;i++)
+                for (int i = 0; i < gpsData.GPSTrajectoriesData.Count; i++)
                 {
                     //起点shapefile
-                    var fe=oFS.AddFeature(new Point(gpsData.GPSTrajectoriesData[i].Start));
+                    var fe = oFS.AddFeature(new Point(gpsData.GPSTrajectoriesData[i].Start));
                     fe.DataRow.BeginEdit();
                     fe.DataRow["UserID"] = gpsData.GPSTrajectoriesData[i].UserID;
                     fe.DataRow["Time"] = gpsData.GPSTrajectoriesData[i].Start.TimeStamp;
@@ -206,6 +208,33 @@ namespace 轨迹数据预处理
                 }
                 oFS.SaveAs("OriginalPoints.shp", true);
                 dFS.SaveAs("DesPoints.shp", true);
+            }
+        }
+        private static void CentroidToShapefile()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "文本文件|*.txt;*.csv";
+            ofd.RestoreDirectory = true;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                StreamReader sr = new StreamReader(ofd.FileName);
+                string[] header = sr.ReadLine().Split(',');
+                IFeatureSet oFS = new FeatureSet(FeatureType.Point);
+                oFS.Projection = ProjectionInfo.FromEpsgCode(2345);
+                oFS.Name = "CentroidPoints";
+                oFS.DataTable.Columns.Add("ID", typeof(string));
+                while (!sr.EndOfStream)
+                {
+                    string[] line = sr.ReadLine().Split(',');
+                    var fe = oFS.AddFeature(new Point(double.Parse(line[1]), double.Parse(line[2])));
+                    fe.DataRow.BeginEdit();
+                    fe.DataRow["ID"] = line[0].Trim('\"');
+                    fe.DataRow.EndEdit();
+                }
+                oFS.SaveAs("CentroidPoint.shp", true);
+                sr.Close();
+                Console.WriteLine("Shapefile转换成功！");
+                Console.ReadKey();
             }
         }
     }

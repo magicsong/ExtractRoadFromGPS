@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DotSpatial.Topology;
+using System.Diagnostics;
+using DotSpatial.Data;
+
 namespace GPSAlogrithm.DbscanImplementation
 {
     /// <summary>
     /// DBSCAN algorithm class
     /// </summary>
     /// <typeparam name="T">Takes dataset item row (features, preferences, vector) type</typeparam>
-    public class DbscanAlgorithm<T> where T : Coordinate
+    public class DbscanAlgorithm<T> where T :Coordinate
     {
         private readonly Func<T, T, double> _metricFunc;
-
+        Stopwatch sw;
         /// <summary>
         /// Takes metric function to compute distances between dataset items T
         /// </summary>
@@ -21,6 +24,7 @@ namespace GPSAlogrithm.DbscanImplementation
         public DbscanAlgorithm(Func<T, T, double> metricFunc)
         {
             _metricFunc = metricFunc;
+            sw = new Stopwatch();
         }
 
         /// <summary>

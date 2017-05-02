@@ -129,7 +129,7 @@ function AddOPoints()
         data: 'http://localhost:1228/GetData/GetStartPoints',
     });
     map.addLayer({
-        "id": "strartpoints",
+        "id": "startpoints",
         "type": "circle",
         "source": "startpoints",
         "paint": {
@@ -169,4 +169,23 @@ function AddLayerToLegend(id,name)
     }).on('ifChecked', function (event) {
         map.setLayoutProperty(id, 'visibility', 'visible');
     });
+}
+function AddCentroidPoints()
+{
+    map.addSource("centroidpoints", {
+        type: "geojson",
+        data: 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints',
+    });
+    map.addLayer({
+        "id": "centroid",
+        "type": "symbol",
+        "source": "centroidpoints",
+        "paint":{ 
+            "icon-color":"#FFFF99"
+        },
+        "layout": {
+            "icon-image": "embassy-15"
+        }
+    });
+    AddLayerToLegend("centroid", "预设中心点");
 }

@@ -194,6 +194,7 @@
     </Content>
     <Content Include="App_Data\DesPoints.json" />
     <Content Include="App_Data\OrigPoints.json" />
+    <Content Include="App_Data\CentroidPoints.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

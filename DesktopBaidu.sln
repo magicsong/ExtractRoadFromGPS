@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapBox", "MapBox\MapBox.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "百度数据抓取", "百度数据抓取\百度数据抓取.csproj", "{3BE7A2D5-05F2-4750-B41A-7261973D63D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataMiningProgram", "DataMiningProgram\DataMiningProgram.csproj", "{BD67170F-8463-4237-94F9-C151175CDF46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3BE7A2D5-05F2-4750-B41A-7261973D63D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BE7A2D5-05F2-4750-B41A-7261973D63D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BE7A2D5-05F2-4750-B41A-7261973D63D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD67170F-8463-4237-94F9-C151175CDF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD67170F-8463-4237-94F9-C151175CDF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD67170F-8463-4237-94F9-C151175CDF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD67170F-8463-4237-94F9-C151175CDF46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

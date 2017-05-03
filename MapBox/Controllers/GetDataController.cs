@@ -25,5 +25,11 @@ namespace MapBox.Controllers
             string contentType = MimeMapping.GetMimeMapping(filepath);
             return File(filepath, contentType);
         }
+        public ActionResult GetJSON(string filename)
+        {
+            string filepath = Server.MapPath("~/App_Data/"+filename+".json");
+            string contentType = MimeMapping.GetMimeMapping(filepath);
+            return File(filepath, contentType);
+        }
     }
 }

@@ -187,6 +187,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\poi.svg" />
+    <Content Include="images\svgs\poi.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -195,6 +196,7 @@
     <Content Include="App_Data\DesPoints.json" />
     <Content Include="App_Data\OrigPoints.json" />
     <Content Include="App_Data\CentroidPoints.json" />
+    <Content Include="App_Data\BusStop.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

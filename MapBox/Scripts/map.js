@@ -5,7 +5,7 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/magicsong/cj1t2vdnv002w2rnzie8q6ize',
     zoom: 13.7,
-    center:[117.2788,31.8664]
+    center: [117.2788, 31.8664]
 });
 map.addControl(new mapboxgl.NavigationControl());
 //map.addControl(new mapboxgl.FullscreenControl());
@@ -15,8 +15,7 @@ map.on('mousemove', function (e) {
 });
 var roadID = "road";
 var GPSID = "GPS";
-function LoadingAnimate(id,name)
-{
+function LoadingAnimate(id, name) {
     $("#loadSVG").show();
     var listener = function (e) {
         if (e.isSourceLoaded && e.tile != undefined) {
@@ -27,8 +26,7 @@ function LoadingAnimate(id,name)
     };
     map.on("sourcedata", listener);
 }
-function AddRoad()
-{
+function AddRoad() {
     map.addLayer({
         "id": roadID,
         "type": "line",
@@ -46,19 +44,18 @@ function AddRoad()
             "line-width": 2
         }
     });
-    AddLayerToLegend(roadID,"路网");
+    AddLayerToLegend(roadID, "路网");
 }
-function AddGPS()
-{
+function AddGPS() {
     map.addSource("GPSSource", {
         type: 'geojson',
-        data:'http://localhost:1228/Home/GetGPS'
+        data: 'http://localhost:1228/Home/GetGPS'
     });
     map.addLayer(
         {
             "id": GPSID,
             type: "line",
-            source:'GPSSource' ,
+            source: 'GPSSource',
             "layout": {
                 "line-join": "round",
                 "line-cap": "round"
@@ -71,8 +68,7 @@ function AddGPS()
     );
     LoadingAnimate(GPSID, "GPS轨迹");
 }
-function AddOPoints1()
-{
+function AddOPoints1() {
     map.addSource("startpoints", {
         type: "geojson",
         // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
@@ -86,7 +82,7 @@ function AddOPoints1()
         [30, '#ffffd4'],
         [100, '#fed98e'],
         [300, '#fe9929'],
-        [500,'#d95f0e']
+        [500, '#d95f0e']
         //[1000, '#993404']
     ];
 
@@ -122,8 +118,7 @@ function AddOPoints1()
 
 
 }
-function AddOPoints()
-{
+function AddOPoints() {
     map.addSource("startpoints", {
         type: "geojson",
         data: 'http://localhost:1228/GetData/GetStartPoints',
@@ -157,9 +152,8 @@ function AddDPoints() {
     });
     LoadingAnimate("endpoints", "终点图");
 }
-function AddLayerToLegend(id,name)
-{
-    $("#layergroup").html($("#layergroup").html() + "<li class='list-group-item'><input type ='checkbox' checked='checked' id='" + id + "'>" + "&nbsp;&nbsp;&nbsp;"+name + "</li>");
+function AddLayerToLegend(id, name) {
+    $("#layergroup").html($("#layergroup").html() + "<li class='list-group-item'><input type ='checkbox' checked='checked' id='" + id + "'>" + "&nbsp;&nbsp;&nbsp;" + name + "</li>");
     $('#' + id).iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
@@ -170,22 +164,32 @@ function AddLayerToLegend(id,name)
         map.setLayoutProperty(id, 'visibility', 'visible');
     });
 }
-function AddCentroidPoints()
-{
-    map.addSource("centroidpoints", {
+function AddJsonSymbolPoints(sourceID, sourceURL, layerID, iconURL, legendName) {
+    map.loadImage(iconURL, (error, image) => {
+        if (error)
+            throw error;
+        map.addImage(layerID + 'icon', image);
+    });
+    map.addSource(sourceID, {
         type: "geojson",
-        data: 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints',
+        data: sourceURL
     });
     map.addLayer({
-        "id": "centroid",
+        "id": layerID,
         "type": "symbol",
-        "source": "centroidpoints",
-        "paint":{ 
-            "icon-color":"#FFFF99"
+        "source": sourceID,
+        "paint": {
+            "icon-color": "#FFFF99"
         },
         "layout": {
-            "icon-image": "embassy-15"
+            "icon-image": layerID+'icon'
         }
     });
-    AddLayerToLegend("centroid", "预设中心点");
+    AddLayerToLegend(layerID, legendName);
+}
+function AddCentroidPoints() {
+    AddJsonSymbolPoints('CentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints', "Centroid", 'http://localhost:1228/images/svgs/embassy-15.svg', "预设中心点");
+}
+function AddBusStop() {
+    AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/sygs/bus.svg', "公交车站");
 }

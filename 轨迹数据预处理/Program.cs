@@ -218,20 +218,23 @@ namespace 轨迹数据预处理
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 StreamReader sr = new StreamReader(ofd.FileName);
-                string[] header = sr.ReadLine().Split(',');
+                //string[] header = sr.ReadLine().Split(',');
                 IFeatureSet oFS = new FeatureSet(FeatureType.Point);
-                oFS.Projection = ProjectionInfo.FromEpsgCode(2345);
-                oFS.Name = "CentroidPoints";
-                oFS.DataTable.Columns.Add("ID", typeof(string));
+                oFS.Projection = ProjectionInfo.FromEpsgCode(4326);
+                oFS.Name = "BusStop";
+                oFS.DataTable.Columns.Add("Name", typeof(string));
                 while (!sr.EndOfStream)
                 {
                     string[] line = sr.ReadLine().Split(',');
-                    var fe = oFS.AddFeature(new Point(double.Parse(line[1]), double.Parse(line[2])));
+                    double x = double.Parse(line[2]);
+                    double y = double.Parse(line[3]);
+                    var xyCorrection=CoordinateTransformUtil.bd09towgs84(x, y);
+                    var fe = oFS.AddFeature(new Point(xyCorrection[0],xyCorrection[1]));
                     fe.DataRow.BeginEdit();
-                    fe.DataRow["ID"] = line[0].Trim('\"');
+                    fe.DataRow["Name"] = line[0];
                     fe.DataRow.EndEdit();
                 }
-                oFS.SaveAs("CentroidPoint.shp", true);
+                oFS.SaveAs("BusStop.shp", true);
                 sr.Close();
                 Console.WriteLine("Shapefile转换成功！");
                 Console.ReadKey();

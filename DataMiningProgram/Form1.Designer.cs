@@ -31,9 +31,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.算法ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,8 +46,15 @@
             this.minPtsTrackBar = new System.Windows.Forms.TrackBar();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.logTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -55,6 +64,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minPtsTrackBar)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -84,6 +94,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(1321, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             // 
             // splitContainer1
             // 
@@ -135,6 +151,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "DBSCAN算法";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(379, 130);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 22);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "label4";
             // 
             // button2
             // 
@@ -216,11 +242,20 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.textBox4);
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.button3);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 26);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Size = new System.Drawing.Size(451, 769);
+            this.tabPage2.Size = new System.Drawing.Size(451, 765);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -236,21 +271,80 @@
             this.logTextBox.TabIndex = 0;
             this.logTextBox.Text = "Log面板";
             // 
-            // label4
+            // textBox1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(379, 130);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 22);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "label4";
+            this.textBox1.Location = new System.Drawing.Point(22, 47);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(328, 23);
+            this.textBox1.TabIndex = 0;
             // 
-            // toolStripProgressBar1
+            // label5
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
-            this.toolStripProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(19, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 17);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "起始点";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(370, 47);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "浏览....";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(370, 126);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "浏览....";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 97);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 17);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "到达点";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(22, 126);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(328, 23);
+            this.textBox3.TabIndex = 3;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(370, 203);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 8;
+            this.button5.Text = "浏览....";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(19, 174);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 17);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "起始点";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(22, 203);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(328, 23);
+            this.textBox4.TabIndex = 6;
             // 
             // Form1
             // 
@@ -278,6 +372,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minPtsTrackBar)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,6 +399,15 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button3;
     }
 }
 

@@ -18,7 +18,7 @@ var GPSID = "GPS";
 function LoadingAnimate(id, name) {
     $("#loadSVG").show();
     var listener = function (e) {
-        if (e.isSourceLoaded && e.tile != undefined) {
+        if (e.isSourceLoaded && e.tile !== undefined) {
             map.off("sourcedata", listener);
             AddLayerToLegend(id, name);
             $("#loadSVG").hide();
@@ -121,7 +121,7 @@ function AddOPoints1() {
 function AddOPoints() {
     map.addSource("startpoints", {
         type: "geojson",
-        data: 'http://localhost:1228/GetData/GetStartPoints',
+        data: 'http://localhost:1228/GetData/GetStartPoints'
     });
     map.addLayer({
         "id": "startpoints",
@@ -131,14 +131,14 @@ function AddOPoints() {
             "circle-color": 'rgba(52, 152, 219,0.1)',
             "circle-radius": 3,
             "circle-blur": 0
-        },
+        }
     });
     LoadingAnimate("startpoints", "起点图");
 }
 function AddDPoints() {
     map.addSource("endpoints", {
         type: "geojson",
-        data: 'http://localhost:1228/GetData/GetEndPoints',
+        data: 'http://localhost:1228/GetData/GetEndPoints'
     });
     map.addLayer({
         "id": "endpoints",
@@ -148,7 +148,7 @@ function AddDPoints() {
             "circle-color": 'rgba(231, 76, 60,0.1)',
             "circle-radius": 3,
             "circle-blur": 0
-        },
+        }
     });
     LoadingAnimate("endpoints", "终点图");
 }

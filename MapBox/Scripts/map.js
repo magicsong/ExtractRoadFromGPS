@@ -164,32 +164,33 @@ function AddLayerToLegend(id, name) {
         map.setLayoutProperty(id, 'visibility', 'visible');
     });
 }
-function AddJsonSymbolPoints(sourceID, sourceURL, layerID, iconURL, legendName) {
+function AddJsonSymbolPoints(sourceID, sourceURL, layerID, iconURL, legendName,iconsize) {
     map.loadImage(iconURL, (error, image) => {
         if (error)
             throw error;
         map.addImage(layerID + 'icon', image);
+        map.addSource(sourceID, {
+            type: "geojson",
+            data: sourceURL
+        });
+        map.addLayer({
+            "id": layerID,
+            "type": "symbol",
+            "source": sourceID,
+            "paint": {
+                "icon-color": "#FFFF99"
+            },
+            "layout": {
+                "icon-image": layerID + 'icon',
+                "icon-size": iconsize
+            }
+        });
+        AddLayerToLegend(layerID, legendName);
     });
-    map.addSource(sourceID, {
-        type: "geojson",
-        data: sourceURL
-    });
-    map.addLayer({
-        "id": layerID,
-        "type": "symbol",
-        "source": sourceID,
-        "paint": {
-            "icon-color": "#FFFF99"
-        },
-        "layout": {
-            "icon-image": layerID+'icon'
-        }
-    });
-    AddLayerToLegend(layerID, legendName);
 }
 function AddCentroidPoints() {
-    AddJsonSymbolPoints('CentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints', "Centroid", 'http://localhost:1228/images/svgs/embassy-15.svg', "预设中心点");
+    AddJsonSymbolPoints('CentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints', "Centroid", 'http://localhost:1228/images/embassy.png', "预设中心点",0.5);
 }
 function AddBusStop() {
-    AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/sygs/bus.svg', "公交车站");
+    AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/bus.png', "公交车站",1);
 }

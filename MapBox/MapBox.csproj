@@ -186,7 +186,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\poi.svg" />
+    <Content Include="images\bus.png" />
+    <Content Include="images\embassy.png" />
     <Content Include="images\svgs\poi.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

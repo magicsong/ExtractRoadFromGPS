@@ -196,7 +196,7 @@ namespace 轨迹数据预处理
                 dFS.SaveAs("DesPoints.shp", true);
             }
         }
-        private static void CentroidToShapefile()
+        public static void CentroidToShapefile()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "文本文件|*.txt;*.csv";

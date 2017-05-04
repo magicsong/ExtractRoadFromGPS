@@ -42,24 +42,17 @@ namespace 轨迹数据预处理
             sr.Close();
             //Bus数据,并且构造KD树
             IFeatureSet busFS = FeatureSet.Open(@"D:\My University\数据挖掘\程序\DigRoadFromGPS\轨迹数据预处理\bin\Debug\BusStopGauss.shp");
-            KdTree myTree = new KdTree(2);
+            List<Coordinate> busStopPoints = new List<Coordinate>(busFS.NumRows());
             foreach (var item in busFS.Features)
             {
-                double[] key = new double[2] { item.Coordinates[0].X, item.Coordinates[0].Y };
-                myTree.Insert(key, item);
+                busStopPoints.Add(item.Coordinates[0]);
             }
-            Console.WriteLine("成功读取数据并建立索引树");
+            Console.WriteLine("数据读取完毕，开始构造遗传算法知识");
             IFeatureSet newCentroid = new FeatureSet(FeatureType.Point);
             newCentroid.Name = "优化过的中心点";
             newCentroid.Projection = ProjectionInfo.FromEpsgCode(GAUSS_EPSG);
-            foreach (var item in centroidPoints)
-            {
-                object[] nearestO = myTree.Nearest(new double[] { item.X, item.Y }, 3);
-                for (int i = 0; i < 3; i++)
-                {
+            //遗传算法部分，这里是核心内容
 
-                }
-            }
 
         }
         static void CaculateData()

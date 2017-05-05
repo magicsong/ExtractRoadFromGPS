@@ -11,18 +11,30 @@ namespace 轨迹数据预处理
 {
     public class MyProblemFitness : IFitness
     {
-        public List<Coordinate> CentroidPoints { get; set; }
-        public List<Coordinate> BusStopPoints { get; set; }
-        public List<int[]> CandiatesForEachCentroid { get; set; }
+        public MyProblemFitness(List<Coordinate> centroidPoints, List<Coordinate> busStopPoints, List<int[]> candiatesForEachCentroid)
+        {
+            CentroidPoints = centroidPoints;
+            BusStopPoints = busStopPoints;
+            CandiatesForEachCentroid = candiatesForEachCentroid;
+        }
+
+        static public List<Coordinate> CentroidPoints { get; set; }
+        static public List<Coordinate> BusStopPoints { get; set; }
+        static public List<int[]> CandiatesForEachCentroid { get; set; }
         public double Evaluate(IChromosome chromosome)
         {
-            HashSet<int> checkRepeat = new HashSet<int>();
             MyProblemChromosome mpc = chromosome as MyProblemChromosome;
+            HashSet<int> checkDupicate = new HashSet<int>();
+            int count = 0;
             for (int i = 0; i < mpc.Length; i++)
             {
-                if (!checkRepeat.Add((int)mpc.GetGene(i).Value))
-                    return double.MinValue;
+                int index = (int)mpc.GetGene(i).Value;
+                int id=CandiatesForEachCentroid[i][index];
+                if (checkDupicate.Add(id))
+                    count++;
             }
+            if (count <= CentroidPoints.Count() * 0.93)
+                return double.MinValue;
             double fitness = 0;
             for (int i = 0; i < mpc.Length; i++)
             {

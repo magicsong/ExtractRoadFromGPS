@@ -194,3 +194,7 @@ function AddCentroidPoints() {
 function AddBusStop() {
     AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/bus.png', "公交车站",1);
 }
+function AddNewCentroidPoints()
+{
+    AddJsonSymbolPoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid', "newCentroid", 'http://localhost:1228/images/marker.png', "规划后中心点", 1);
+}

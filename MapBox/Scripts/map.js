@@ -153,18 +153,21 @@ function AddDPoints() {
     LoadingAnimate("endpoints", "终点图");
 }
 function AddLayerToLegend(id, name) {
-    $("#layergroup").html($("#layergroup").html() + "<li class='list-group-item'><input type ='checkbox' checked='checked' id='" + id + "'>" + "&nbsp;&nbsp;&nbsp;" + name + "</li>");
-    $('#' + id).iCheck({
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' // optional
-    }).on('ifUnchecked', function (event) {
-        map.setLayoutProperty(id, 'visibility', 'none');
-    }).on('ifChecked', function (event) {
-        map.setLayoutProperty(id, 'visibility', 'visible');
+    $("#layergroup").append("<li class='list-group-item'>"+ name +
+        "<div class='material-switch pull-right' >"+
+            "<input id='"+id+"' type='checkbox' checked/>"+
+            "<label for='" + id +"' class='label-primary'></label>"+
+         "</div >" +
+        "</li >");
+    $("#" + id).change((event) => {
+        console.log(id);
+        if ($("#" + id).is(':checked'))
+            map.setLayoutProperty(id, "visibility", "visible");
+        else
+            map.setLayoutProperty(id, "visibility", "none");
     });
 }
-function AddJsonSymbolPoints(sourceID, sourceURL, layerID, iconURL, legendName,iconsize) {
+function AddJsonSymbolPoints(sourceID, sourceURL, layerID, iconURL, legendName, iconsize) {
     map.loadImage(iconURL, (error, image) => {
         if (error)
             throw error;
@@ -188,13 +191,28 @@ function AddJsonSymbolPoints(sourceID, sourceURL, layerID, iconURL, legendName,i
         AddLayerToLegend(layerID, legendName);
     });
 }
+function AddJsonCirclePoints(sourceID, sourceURL, layerID, color, legendName, size) {
+    map.addSource(sourceID, {
+        type: "geojson",
+        data: sourceURL
+    });
+    map.addLayer({
+        "id": layerID,
+        "type": "circle",
+        "source": sourceID,
+        "paint": {
+            "circle-radius": size,
+            "circle-color": color
+        },
+    });
+    AddLayerToLegend(layerID, legendName);
+}
 function AddCentroidPoints() {
-    AddJsonSymbolPoints('CentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints', "Centroid", 'http://localhost:1228/images/embassy.png', "预设中心点",0.5);
+    AddJsonSymbolPoints('CentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=CentroidPoints', "Centroid", 'http://localhost:1228/images/embassy.png', "预设中心点", 0.5);
 }
 function AddBusStop() {
-    AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/bus.png', "公交车站",1);
+    AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/bus.png', "公交车站", 1);
 }
-function AddNewCentroidPoints()
-{
-    AddJsonSymbolPoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid', "newCentroid", 'http://localhost:1228/images/marker.png', "规划后中心点", 1);
+function AddNewCentroidPoints() {
+    AddJsonCirclePoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid', "newCentroid", "#66B2FF", "规划后中心点", 6);
 }

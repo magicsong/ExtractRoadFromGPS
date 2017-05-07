@@ -33,7 +33,8 @@ namespace 轨迹数据预处理
                 if (checkDupicate.Add(id))
                     count++;
             }
-            if (count <= CentroidPoints.Count() * 0.93)
+            mpc.Significance = count;
+            if (count <= CentroidPoints.Count() * 0.94)
                 return double.MinValue;
             double fitness = 0;
             for (int i = 0; i < mpc.Length; i++)

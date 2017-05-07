@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CentroidCorrection.cs" />
     <Compile Include="MyProblemChromosome.cs" />
     <Compile Include="MyProblemFitness.cs" />
     <Compile Include="OnceFunction.cs" />

@@ -15,7 +15,7 @@ namespace MapBox.Controllers
         }
         public ActionResult GetStartPoints()
         {
-            string filepath = Server.MapPath("~/App_Data/OriginalGaussWithSubjectOrigPoints.json");
+            string filepath = Server.MapPath("~/App_Data/OriginalGaussWithSubject.json");
             string contentType = MimeMapping.GetMimeMapping(filepath);
             return File(filepath, contentType);
         }

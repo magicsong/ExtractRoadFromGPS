@@ -166,7 +166,7 @@
     </Content>
     <Content Include="App_Data\CentroidPoints.json" />
     <Content Include="App_Data\BusStop.json" />
-    <Content Include="App_Data\newCentroid.json" />
+    <Content Include="App_Data\newCentroid2.json" />
     <Content Include="App_Data\DesGaussWithSubject.json" />
     <Content Include="App_Data\OriginalGaussWithSubject.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

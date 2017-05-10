@@ -102,5 +102,60 @@ namespace 轨迹数据预处理
             newCentroid.SaveAs("newCentroid.shp", true);
             Console.ReadKey();
         }
+        public static void CorrectionCentroid()
+        {
+            //中心点数据
+            List<Coordinate> centroidPoints = new List<Coordinate>(80);
+            StreamReader sr = new StreamReader(@"D:\OneDrive\2017研究生毕业设计\数据\项目用数据\中心点80.txt");
+            sr.ReadLine();//读取标题行
+            while (!sr.EndOfStream)
+            {
+                string[] line = sr.ReadLine().Split(',');
+                centroidPoints.Add(new Coordinate(double.Parse(line[1]), double.Parse(line[2])));
+            }
+            sr.Close();
+            //Bus数据,并且构造KD树
+            KdTree myKdtree = new KdTree(2);
+            IFeatureSet busFS = FeatureSet.Open(@"D:\OneDrive\2017研究生毕业设计\数据\项目用数据\BusStopGauss.shp");
+            List<Coordinate> busStopPoints = new List<Coordinate>(busFS.NumRows());
+            HashSet<int> checkDuplicate = new HashSet<int>();
+            foreach (var item in busFS.Features)
+            {
+                var c = item.Coordinates[0];
+                busStopPoints.Add(c);
+                myKdtree.Insert(new double[] { c.X, c.Y }, item);
+            }
+            Console.WriteLine("数据读取完毕，开始纠正数据");
+            IFeatureSet newCentroid = new FeatureSet(FeatureType.Point);
+            newCentroid.Name = "优化过的中心点";
+            newCentroid.Projection = ProjectionInfo.FromEpsgCode(GAUSS_EPSG);
+            int count = 0;
+            foreach (var item in centroidPoints)
+            {
+                var nearsestBus = myKdtree.Nearest(new double[] { item.X, item.Y }, 3);
+                bool addSuccess = false;
+                IFeature addFeature = null;
+                for (int i = 0; i < 3; i++)
+                {
+                    IFeature f = nearsestBus[i] as IFeature;
+                    if (f.Coordinates[0].Distance(item) < 100)
+                    {
+                        if (checkDuplicate.Add(f.Fid))
+                        {
+                            addFeature=newCentroid.AddFeature(f.BasicGeometry);
+                            addSuccess = true;
+                        }
+                    }
+                }
+                if (!addSuccess)
+                {
+                    addFeature = newCentroid.AddFeature(new Point(item));
+                    count++;
+                }
+            }
+            Console.WriteLine("数据优化结束,共有{0}个数据没有优化",count);
+            newCentroid.SaveAs("newCentroid2.shp", true);
+            Console.ReadKey();
+        }
     }
 }

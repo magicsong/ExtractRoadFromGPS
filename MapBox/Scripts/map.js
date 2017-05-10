@@ -131,7 +131,8 @@ function AddOPoints() {
             "circle-color": 'rgba(52, 152, 219,0.1)',
             "circle-radius": 3,
             "circle-blur": 0
-        }
+        },
+        "filter":["<","Subject",0]
     });
     LoadingAnimate("startpoints", "起点图");
 }
@@ -148,7 +149,8 @@ function AddDPoints() {
             "circle-color": 'rgba(231, 76, 60,0.1)',
             "circle-radius": 3,
             "circle-blur": 0
-        }
+        },
+        "filter": ["<", "Subject", 0]
     });
     LoadingAnimate("endpoints", "终点图");
 }
@@ -214,5 +216,5 @@ function AddBusStop() {
     AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/bus.png', "公交车站", 1);
 }
 function AddNewCentroidPoints() {
-    AddJsonCirclePoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid', "newCentroid", "#db4848", "规划后中心点", 6);
+    AddJsonCirclePoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid2', "newCentroid", "#db4848", "规划后中心点", 8);
 }

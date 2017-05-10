@@ -214,5 +214,5 @@ function AddBusStop() {
     AddJsonSymbolPoints("BusStop", 'http://localhost:1228/GetData/GetJSON?filename=BusStop', "bus", 'http://localhost:1228/images/bus.png', "公交车站", 1);
 }
 function AddNewCentroidPoints() {
-    AddJsonCirclePoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid', "newCentroid", "#66B2FF", "规划后中心点", 6);
+    AddJsonCirclePoints('newCentroidPoints', 'http://localhost:1228/GetData/GetJSON?filename=newCentroid', "newCentroid", "#db4848", "规划后中心点", 6);
 }

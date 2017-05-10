@@ -164,11 +164,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\DesPoints.json" />
-    <Content Include="App_Data\OrigPoints.json" />
     <Content Include="App_Data\CentroidPoints.json" />
     <Content Include="App_Data\BusStop.json" />
     <Content Include="App_Data\newCentroid.json" />
+    <Content Include="App_Data\DesGaussWithSubject.json" />
+    <Content Include="App_Data\OriginalGaussWithSubject.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\icheck.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

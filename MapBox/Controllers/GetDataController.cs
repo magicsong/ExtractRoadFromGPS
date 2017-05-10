@@ -15,13 +15,13 @@ namespace MapBox.Controllers
         }
         public ActionResult GetStartPoints()
         {
-            string filepath = Server.MapPath("~/App_Data/OrigPoints.json");
+            string filepath = Server.MapPath("~/App_Data/OriginalGaussWithSubjectOrigPoints.json");
             string contentType = MimeMapping.GetMimeMapping(filepath);
             return File(filepath, contentType);
         }
         public ActionResult GetEndPoints()
         {
-            string filepath = Server.MapPath("~/App_Data/DesPoints.json");
+            string filepath = Server.MapPath("~/App_Data/DesGaussWithSubject.json");
             string contentType = MimeMapping.GetMimeMapping(filepath);
             return File(filepath, contentType);
         }

@@ -266,3 +266,5 @@ __pycache__/
 *.dbf
 newTrajectories.txt
 项目用数据.rar
+OriginalGaussWithSubject.json
+DesGaussWithSubject.json

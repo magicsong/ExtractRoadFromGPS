@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using System.IO;
 
 namespace WeiboSpider
 {
@@ -20,27 +21,91 @@ namespace WeiboSpider
             InitializeChromium();
         }
         public ChromiumWebBrowser chromeBrowser;
-
+        private string myScripts;
+        private string nextPage;
+        private StreamWriter sw;
+        private bool isStartSpider = false;
         public void InitializeChromium()
         {
+            string website = "http://s.weibo.com/weibo/%25E5%2585%25AC%25E5%2585%25B1%25E8%2587%25AA%25E8%25A1%258C%25E8%25BD%25A6";
             CefSettings settings = new CefSettings();
+            settings.CachePath = Environment.CurrentDirectory + @"\Caches\";
+            settings.PersistSessionCookies = true;
             // Initialize cef with the provided settings
             Cef.Initialize(settings);
             // Create a browser component
-            chromeBrowser = new ChromiumWebBrowser("http://s.weibo.com");
+            chromeBrowser = new ChromiumWebBrowser(website);
+            chromeBrowser.LoadingStateChanged += ChromeBrowser_LoadingStateChanged;
             // Add it to the form and fill it to the form window.
             splitContainer1.Panel2.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
         }
 
+        private void ChromeBrowser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e)
+        {
+            if (isStartSpider && !e.IsLoading)
+            {
+                OneTask();
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            StreamReader sr = new StreamReader("spider.js");
+            myScripts = sr.ReadToEnd();
+            sr.Close();
+            sw = new StreamWriter("results共享单车.txt", true, Encoding.UTF8);
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Cef.Shutdown();
+            sw.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            isStartSpider = true;
+            toolStripProgressBar1.MarqueeAnimationSpeed = 30;
+            OneTask();
+        }
+
+        private void OneTask()
+        {
+            var task = chromeBrowser.GetMainFrame().EvaluateScriptAsync(myScripts, null);
+            task.ContinueWith(t =>
+            {
+                if (!t.IsFaulted)
+                {
+                    var response = t.Result;
+                    object EvaluateJavaScriptResult = response.Success ? (response.Result ?? "null") : response.Message;
+                    string[] data = EvaluateJavaScriptResult.ToString().Split('\n');
+                    if (data.Length <= 1)
+                    {
+                        toolStripStatusLabel1.Text = "抓取完毕或者出现错误了！";
+                        isStartSpider = false;
+                        MessageBox.Show("抓取完毕或者出现错误了!");
+                    }
+                    else
+                    {
+                        nextPage = data[0];
+                        for (int i = 1; i < data.Length; i++)
+                        {
+                            sw.WriteLine(data[i]);
+                        }
+                        Invoke(new Action(() =>
+                        {
+                            toolStripStatusLabel1.Text = "抓取成功！";
+                            chromeBrowser.Load(nextPage);
+                        }));
+                    }
+                }
+            });
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            isStartSpider = false;
         }
     }
 }

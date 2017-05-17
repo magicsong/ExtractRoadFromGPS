@@ -11,8 +11,10 @@
     data += href+"\n";
     for (item of elements)
     {
-        var str = item.innerText.replace("\n", " ");
-        data += str + '\n';
+        var str = item.textContent;
+        //获取时间
+        var title = item.parentNode.nextElementSibling.firstElementChild.title;
+        data += str + '\t' + title+ '\n';
     }
     return data;
 })();

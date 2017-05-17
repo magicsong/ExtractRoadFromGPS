@@ -53,8 +53,7 @@ namespace WeiboSpider
         {
             StreamReader sr = new StreamReader("spider.js");
             myScripts = sr.ReadToEnd();
-            sr.Close();
-            sw = new StreamWriter("results共享单车.txt", true, Encoding.UTF8);
+            sr.Close();           
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -65,6 +64,7 @@ namespace WeiboSpider
 
         private void button1_Click(object sender, EventArgs e)
         {
+            sw = new StreamWriter(textBox1.Text, true, Encoding.UTF8);
             isStartSpider = true;
             toolStripProgressBar1.MarqueeAnimationSpeed = 30;
             OneTask();
@@ -82,9 +82,13 @@ namespace WeiboSpider
                     string[] data = EvaluateJavaScriptResult.ToString().Split('\n');
                     if (data.Length <= 1)
                     {
-                        toolStripStatusLabel1.Text = "抓取完毕或者出现错误了！";
-                        isStartSpider = false;
-                        MessageBox.Show("抓取完毕或者出现错误了!");
+                        Invoke(new Action(() =>
+                        {
+                            toolStripStatusLabel1.Text = "抓取完毕或者出现错误了！";
+                            isStartSpider = false;
+                            toolStripProgressBar1.MarqueeAnimationSpeed = 0;
+                            MessageBox.Show("抓取完毕或者出现错误了!");
+                        }));
                     }
                     else
                     {

@@ -25,6 +25,7 @@ namespace WeiboSpider
         private string nextPage;
         private StreamWriter sw;
         private bool isStartSpider = false;
+        private int CurrentCount = 1;
         public void InitializeChromium()
         {
             string website = "http://s.weibo.com/weibo/%25E5%2585%25AC%25E5%2585%25B1%25E8%2587%25AA%25E8%25A1%258C%25E8%25BD%25A6";
@@ -35,7 +36,8 @@ namespace WeiboSpider
             Cef.Initialize(settings);
             // Create a browser component
             chromeBrowser = new ChromiumWebBrowser(website);
-            chromeBrowser.LoadingStateChanged += ChromeBrowser_LoadingStateChanged;
+            chromeBrowser.BrowserSettings.ImageLoading = CefState.Disabled;
+            //chromeBrowser.LoadingStateChanged += ChromeBrowser_LoadingStateChanged;
             // Add it to the form and fill it to the form window.
             splitContainer1.Panel2.Controls.Add(chromeBrowser);
             chromeBrowser.Dock = DockStyle.Fill;
@@ -53,13 +55,15 @@ namespace WeiboSpider
         {
             StreamReader sr = new StreamReader("spider.js");
             myScripts = sr.ReadToEnd();
-            sr.Close();           
+            sr.Close();
+            textBox3.Text = timer1.Interval.ToString();
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Cef.Shutdown();
-            sw.Close();
+            if (sw != null)
+                sw.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -67,7 +71,7 @@ namespace WeiboSpider
             sw = new StreamWriter(textBox1.Text, true, Encoding.UTF8);
             isStartSpider = true;
             toolStripProgressBar1.MarqueeAnimationSpeed = 30;
-            OneTask();
+            timer1.Start();
         }
 
         private void OneTask()
@@ -84,15 +88,18 @@ namespace WeiboSpider
                     {
                         Invoke(new Action(() =>
                         {
-                            toolStripStatusLabel1.Text = "抓取完毕或者出现错误了！";
-                            isStartSpider = false;
+                            timer1.Stop();                                           
                             toolStripProgressBar1.MarqueeAnimationSpeed = 0;
-                            MessageBox.Show("抓取完毕或者出现错误了!");
+                            textBox2.AppendText("抓取完毕或者出现错误了");
+                            this.TopMost = true;
+                            if (MessageBox.Show("出现了错误请处理！") == DialogResult.OK)
+                                TopMost = false;
                         }));
                     }
                     else
                     {
                         nextPage = data[0];
+                        chromeBrowser.Load(nextPage);
                         for (int i = 1; i < data.Length; i++)
                         {
                             sw.WriteLine(data[i]);
@@ -100,7 +107,7 @@ namespace WeiboSpider
                         Invoke(new Action(() =>
                         {
                             toolStripStatusLabel1.Text = "抓取成功！";
-                            chromeBrowser.Load(nextPage);
+                            textBox2.AppendText(string.Format("第{0}次抓取数据成功！下一页是{1}", CurrentCount++, nextPage));                            
                         }));
                     }
                 }
@@ -109,7 +116,22 @@ namespace WeiboSpider
 
         private void button2_Click(object sender, EventArgs e)
         {
-            isStartSpider = false;
+            timer1.Stop();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            toolStripProgressBar1.MarqueeAnimationSpeed = 30;
+            OneTask();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            timer1.Interval = int.Parse(textBox3.Text);
         }
     }
 }

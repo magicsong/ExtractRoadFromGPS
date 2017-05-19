@@ -36,7 +36,7 @@ namespace WeiboSpider
             Cef.Initialize(settings);
             // Create a browser component
             chromeBrowser = new ChromiumWebBrowser(website);
-            chromeBrowser.BrowserSettings.ImageLoading = CefState.Disabled;
+            //chromeBrowser.BrowserSettings.ImageLoading = CefState.Disabled;
             //chromeBrowser.LoadingStateChanged += ChromeBrowser_LoadingStateChanged;
             // Add it to the form and fill it to the form window.
             splitContainer1.Panel2.Controls.Add(chromeBrowser);
@@ -72,6 +72,9 @@ namespace WeiboSpider
             isStartSpider = true;
             toolStripProgressBar1.MarqueeAnimationSpeed = 30;
             timer1.Start();
+            var btn = sender as Button;
+            btn.Enabled = false;
+            button4.Enabled = true;
         }
 
         private void OneTask()
@@ -91,9 +94,13 @@ namespace WeiboSpider
                             timer1.Stop();                                           
                             toolStripProgressBar1.MarqueeAnimationSpeed = 0;
                             textBox2.AppendText("抓取完毕或者出现错误了");
+                            //chromeBrowser.BrowserSettings.ImageLoading = CefState.Enabled;
+                            //chromeBrowser.Reload();
                             this.TopMost = true;
                             if (MessageBox.Show("出现了错误请处理！") == DialogResult.OK)
+                            {
                                 TopMost = false;
+                            }
                         }));
                     }
                     else
@@ -117,10 +124,12 @@ namespace WeiboSpider
         private void button2_Click(object sender, EventArgs e)
         {
             timer1.Stop();
+            button1.Enabled = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            //chromeBrowser.BrowserSettings.ImageLoading = CefState.Disabled;
             timer1.Start();
         }
         private void timer1_Tick(object sender, EventArgs e)
